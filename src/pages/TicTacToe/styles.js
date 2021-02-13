@@ -35,7 +35,6 @@ export const Square = styled.button`
   height: 88px;
   background-color: #1b1b38;
 
-  border-radius: 4px;
   border: 2px solid #262652;
 
   color: #fff;

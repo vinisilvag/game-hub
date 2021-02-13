@@ -19,7 +19,6 @@ export const TicTacToeButton = styled(Link)`
   color: #fff;
   background-color: #e94560;
   padding: 22px 24px;
-  border-radius: 16px;
   margin: 0 8px;
 
   &:hover {
@@ -34,7 +33,6 @@ export const MinefieldButton = styled(Link)`
   color: #fff;
   background-color: #1766c2;
   padding: 22px 24px;
-  border-radius: 16px;
   margin: 0 8px;
 
   &:hover {
