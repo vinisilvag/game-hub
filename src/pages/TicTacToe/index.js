@@ -3,7 +3,22 @@ import React, { useState, useEffect } from 'react';
 
 import Navbar from '../../components/Navbar';
 
-import { Container, Title, GameBoard, Square, OIcon, XIcon } from './styles';
+import {
+  Container,
+  Title,
+  GameBoard,
+  Square,
+  OIcon,
+  XIcon,
+  ModalOverlay,
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalBody,
+  ModalBodyText,
+  ModalFooter,
+  ResetButton,
+} from './styles';
 
 function getInitialState() {
   const state = {};
@@ -66,12 +81,18 @@ function getWinner(values) {
 const TicTacToe = () => {
   const [values, setValues] = useState(getInitialState);
   const [player, setPlayer] = useState(1);
+
   const [winner, setWinner] = useState(null);
+  const [endGameMessage, setEndGameMessage] = useState('');
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function resetGame() {
     setWinner(null);
     setValues(getInitialState);
     setPlayer(1);
+
+    setModalIsOpen(false);
   }
 
   const itsATie = Object.values(values).filter(Boolean).length === 9 && !winner;
@@ -79,12 +100,12 @@ const TicTacToe = () => {
   useEffect(() => {
     if (winner || itsATie) {
       if (winner) {
-        alert(`O ganhador é o ${winner > 0 ? 'O' : 'X'}!`);
+        setEndGameMessage(`The winner is: ${winner > 0 ? 'O' : 'X'}!`);
       } else {
-        alert(`Houve um empate!`);
+        setEndGameMessage('There was a tie!');
       }
 
-      resetGame();
+      setModalIsOpen(true);
     }
   }, [winner, itsATie]);
 
@@ -123,6 +144,24 @@ const TicTacToe = () => {
           })}
         </GameBoard>
       </Container>
+      <ModalOverlay modalIsOpen={modalIsOpen}>
+        <Modal>
+          <ModalHeader>
+            <ModalTitle>{endGameMessage}</ModalTitle>
+          </ModalHeader>
+          <ModalBody>
+            <ModalBodyText>
+              To play a new game click on the button below!
+            </ModalBodyText>
+          </ModalBody>
+
+          <ModalFooter>
+            <ResetButton type="button" onClick={resetGame}>
+              Play again
+            </ResetButton>
+          </ModalFooter>
+        </Modal>
+      </ModalOverlay>
     </>
   );
 };
